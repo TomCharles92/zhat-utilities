@@ -1,0 +1,19 @@
+{
+  "name": "zhat-utilities",
+  "version": "1.0.0",
+  "description": "Tools for daily use",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TomCharles92/zhat-utilities.git"
+  },
+  "author": "zhat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TomCharles92/zhat-utilities/issues"
+  },
+  "homepage": "https://github.com/TomCharles92/zhat-utilities#readme"
+}
