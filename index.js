@@ -1,4 +1,5 @@
 import axios from "axios";
+const mime = require('mime');
 
 /**
  * 这里可能有个前提，所以参数都是字符串类型（待求证）
@@ -34,7 +35,7 @@ function zhat_fileDownload({ url, params, method = "get" }) {
 }
 
 // 通过Blob的方式下载文件，方便添加headers
-function zhat_fileDownloadByBlob({ url, params, method = "post", headers = {}, applicationType = "application/vnd.ms-excel" }) {
+function zhat_fileDownloadByBlob({ url, params, method = "post", headers = {} }) {
   let preConfig = {
     method: method,
     url: url,
@@ -54,8 +55,9 @@ function zhat_fileDownloadByBlob({ url, params, method = "post", headers = {}, a
     // 从中取出 filename，最终的文件名要与这个名字保持一致
     let disposition = res.headers["content-disposition"];
     let fileName = disposition.slice(disposition.indexOf("=") + 1);
-
-    let blob = res.data.slice(0, res.data.size, applicationType);
+    let suffix = fileName.slice(fileName.indexOf("."));
+    
+    let blob = res.data.slice(0, res.data.size, mime.getType(suffix));
     downloadOnA(blob, decodeURI(fileName))
   });
 }

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/TomCharles92/zhat-utilities#readme",
   "dependencies": {
-    "axios": "^0.19.0"
+    "axios": "^0.19.0",
+    "mime": "^2.4.4"
   }
 }
