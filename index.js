@@ -35,15 +35,17 @@ function zhat_fileDownload({ url, params, method = "get" }) {
 }
 
 // 通过Blob的方式下载文件，方便添加headers
-function zhat_fileDownloadByBlob({ url, params, method = "post", headers = {} }) {
+function zhat_fileDownloadByBlob({ url, params, method = "post", headers = null }) {
   let preConfig = {
     method: method,
     url: url,
     // 表明返回服务器返回的数据类型
-    responseType: "blob",
-    headers: headers
+    responseType: "blob"
   }
-  // method类型不同，参数类型也不同
+  if (headers) {
+    preConfig = Object.assign(preConfig, { headers: headers })
+  }
+  // method类型不同，axios要求的参数类型也不同
   let config = {};
   if (method === "post") {
     config = Object.assign(preConfig, { data: params });
@@ -56,7 +58,7 @@ function zhat_fileDownloadByBlob({ url, params, method = "post", headers = {} })
     let disposition = res.headers["content-disposition"];
     let fileName = disposition.slice(disposition.indexOf("=") + 1);
     let suffix = fileName.slice(fileName.indexOf("."));
-    
+
     let blob = res.data.slice(0, res.data.size, mime.getType(suffix));
     downloadOnA(blob, decodeURI(fileName))
   });
